@@ -1,0 +1,5 @@
+de/mhus/sample/quarkus/ContainerRequestFilterExtension.class
+de/mhus/sample/quarkus/ExampleResource.class
+de/mhus/sample/quarkus/WriterInterceptorExtension.class
+de/mhus/sample/quarkus/ContainerResponseFilterExtension.class
+de/mhus/sample/quarkus/RsExtension.class

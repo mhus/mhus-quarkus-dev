@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+    <parent>
+		<groupId>de.mhus.lib</groupId>
+		<version>7.4.0-SNAPSHOT</version>
+	    <artifactId>mhus-oss</artifactId>
+    </parent>
+    <version>7.0.0-SNAPSHOT</version>
+	<artifactId>mhus-quarkus-dev</artifactId>
+    <groupId>de.mhus.lib.quarkus</groupId>
+	<packaging>pom</packaging>
+	<description>Integration test suite for mhus projects</description>
+	<url>http://www.mhus.info</url>
+    <properties>
+        <maven.deploy.skip>true</maven.deploy.skip>
+    </properties>
+    
+    <inceptionYear>2020</inceptionYear>
+	<licenses>
+		<license>
+			<name>The Apache Software License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+	<scm>
+		<url>https://github.com/mhus/mhus-itests</url>
+		<connection>scm:git:https://github.com/mhus/mhus-itests/</connection>
+		<tag>HEAD</tag>
+	</scm>
+	<developers>
+		<developer>
+			<id>mhu</id>
+			<name>Mike Hummel</name>
+			<email>mh@mhus.de</email>
+			<url>http://www.mhus.org</url>
+		</developer>
+	</developers>
+	
+    <modules>
+       <module>examples-rest</module>
+       <module>examples-adb</module>
+       <module>examples-jms</module>
+       <module>examples-micro</module>
+       <module>examples-vaadin</module>
+       <module>examples-reactive</module>
+       <module>karaf-mhus</module>
+       <module>test-cases</module>
+    </modules>
+
+	
+	<build>
+		<plugins>
+		      <plugin>
+		        <groupId>org.codehaus.mojo</groupId>
+		        <artifactId>properties-maven-plugin</artifactId>
+		        <version>1.0.0</version>
+		        <executions>
+		          <execution>
+		            <phase>generate-resources</phase>
+		            <goals>
+		              <goal>write-project-properties</goal>
+		            </goals>
+		            <configuration>
+		              <outputFile>
+		                ${project.build.outputDirectory}/app.properties
+		              </outputFile>
+		            </configuration>
+		          </execution>
+		        </executions>
+		      </plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+				    <systemPropertiesFile>${project.build.outputDirectory}/app.properties</systemPropertiesFile>
+				</configuration>
+			</plugin>
+			<plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-assembly-plugin</artifactId>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+			</plugin>
+
+			<plugin>
+				<groupId>org.sonatype.plugins</groupId>
+				<artifactId>nexus-staging-maven-plugin</artifactId>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-enforcer-plugin</artifactId>
+			</plugin>
+
+			<plugin>
+				<groupId>com.mycila</groupId>
+				<artifactId>license-maven-plugin</artifactId>
+			</plugin>
+			
+			<plugin>
+			    <groupId>org.apache.maven.plugins</groupId>
+			    <artifactId>maven-site-plugin</artifactId>
+			    <version>3.9.1</version>
+ 		     </plugin>
+		</plugins>
+
+	</build>
+
+    <dependencies>
+        <dependency>
+            <groupId>de.mhus.lib</groupId>
+            <artifactId>lib-junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+	    <dependency>
+	        <groupId>de.mhus.lib</groupId>
+	        <artifactId>lib-core</artifactId>
+	    </dependency>
+    
+        <!-- junit 5, unit tests -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>${junit.jupiter.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- Needed by junit -->
+        <dependency>
+            <groupId>org.hamcrest</groupId>
+            <artifactId>hamcrest-all</artifactId>
+            <version>${hamcrest.version}</version>
+            <scope>compile</scope>
+        </dependency>
+  </dependencies>
+  
+    
+</project>
